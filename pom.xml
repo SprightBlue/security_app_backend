@@ -68,8 +68,8 @@
     </dependencies>
 
     <build>
+        <finalName>app</finalName>
         <plugins>
-            <finalName>app</finalName>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
