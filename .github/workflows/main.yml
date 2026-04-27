@@ -32,3 +32,10 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ env.IMAGE_NAME }}:latest
+
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'security-app-backend' # El nombre de tu App Service en Azure
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+          images: 'ghcr.io/${{ github.repository }}:latest'
