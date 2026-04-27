@@ -13,7 +13,7 @@ Este proyecto es el núcleo de procesamiento para la detección de estafas y ges
 
 ## 🛠️ Configuración del Entorno Local
 
-Para que el proyecto funcione correctamente en tu máquina, sigue estos pasos obligatorios de configuración de infraestructura.
+Para que el proyecto funcione correctamente en tu máquina, sin dependender de una conexion a Supabase, sigue estos pasos obligatorios de configuración de infraestructura.
 
 ### 1. Variables de Entorno
 Por motivos de seguridad, el archivo `application.yml` no contiene credenciales. Debes configurar las siguientes variables de entorno en tu IDE (IntelliJ: *Edit Configurations -> Environment Variables*):
@@ -26,8 +26,8 @@ Por motivos de seguridad, el archivo `application.yml` no contiene credenciales.
 
 ### 2. Preparación de la Base de Datos
 Antes de ejecutar la aplicación por primera vez, debes realizar lo siguiente:
-1. Abre tu gestor de base de datos (DataGrip, pgAdmin o terminal).
-2. **Crea una nueva base de datos** manualmente. El nombre debe coincidir exactamente con el que pusiste en tu variable `DB_URL` (en el ejemplo: `security_db`).
+1. Abre tu gestor de base de datos (DataGrip, pgAdmin, etc).
+2. **Crea una nueva base de datos** manualmente. El nombre debe coincidir exactamente con el que pusiste en tu variable `DB_URL`.
 3. **Importante:** No necesitas crear las tablas a mano. Gracias a la configuración `ddl-auto: update`, Spring Boot las creará automáticamente al detectar tus clases en el paquete `model`.
 
 ---
