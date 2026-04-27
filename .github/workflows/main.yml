@@ -1,0 +1,31 @@
+name: CI/CD Pipeline - GHCR
+
+on:
+  push:
+    branches: [ "main" ] # Se activa al subir cambios a la rama principal
+
+permissions:
+  contents: read
+  packages: write # Vital para poder subir la imagen al registro de GitHub
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Login en GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Construir y Subir imagen Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          # Esto crea la imagen con el nombre de tu repositorio
+          tags: ghcr.io/${{ github.repository }}:latest
