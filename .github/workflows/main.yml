@@ -2,11 +2,11 @@ name: CI/CD Pipeline - GHCR
 
 on:
   push:
-    branches: [ "main" ] # Se activa al subir cambios a la rama principal
+    branches: [ "main" ]
 
 permissions:
   contents: read
-  packages: write # Vital para poder subir la imagen al registro de GitHub
+  packages: write
 
 jobs:
   build-and-push:
@@ -22,10 +22,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Este paso convierte el nombre del repo a minúsculas para evitar el error de Docker
+      - name: Lowercase repo name
+        run: |
+          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+
       - name: Construir y Subir imagen Docker
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          # Esto crea la imagen con el nombre de tu repositorio
-          tags: ghcr.io/${{ github.repository }}:latest
+          # Usamos la variable IMAGE_NAME que acabamos de crear en minúsculas
+          tags: ghcr.io/${{ env.IMAGE_NAME }}:latest
